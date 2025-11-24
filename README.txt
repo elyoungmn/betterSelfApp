@@ -1,0 +1,1 @@
+Pegue este src/ y App.js en un proyecto Expo creado con create-expo-app. Instale: expo install @react-navigation/native @react-navigation/bottom-tabs @react-navigation/native-stack react-native-screens react-native-safe-area-context @react-native-async-storage/async-storage expo-status-bar

@@ -1,42 +1,29 @@
 {
   "expo": {
-    "name": "betterSelfApp",
+    "name": "BetterSelfApp",
     "slug": "betterSelfApp",
     "version": "1.0.0",
+    "scheme": "betterself",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "betterselfapp",
-    "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
-    "ios": {
-      "supportsTablet": true
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "edgeToEdgeEnabled": true
+      "package": "com.morenoyoung.betterselfapp",
+      "versionCode": 1
     },
-    "web": {
-      "bundler": "metro",
-      "output": "static",
-      "favicon": "./assets/images/favicon.png"
+    "extra": {
+      "eas": {
+        "projectId": "236d26ff-61da-4332-a4ff-c51140e740ed"
+      }
     },
-    "plugins": [
-      "expo-router",
-      [
-        "expo-splash-screen",
-        {
-          "image": "./assets/images/splash-icon.png",
-          "imageWidth": 200,
-          "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
-        }
-      ]
-    ],
-    "experiments": {
-      "typedRoutes": true
+    "ios": {
+      "bundleIdentifier": "com.morenoyoung.betterselfapp",
+      "buildNumber": "1",
+      "supportsTablet": true
     }
   }
 }
