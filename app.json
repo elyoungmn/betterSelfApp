@@ -24,6 +24,9 @@
       "bundleIdentifier": "com.morenoyoung.betterselfapp",
       "buildNumber": "1",
       "supportsTablet": true
-    }
+    },
+    "plugins": [
+      "expo-asset"
+    ]
   }
 }

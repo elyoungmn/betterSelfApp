@@ -1,23 +1,23 @@
 // App.js
-import 'react-native-gesture-handler';
-import React, { useEffect, useState } from 'react';
-import { Platform, View, ActivityIndicator } from 'react-native';
-import { NavigationContainer, DarkTheme } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { StatusBar } from 'expo-status-bar';
 import { Ionicons } from '@expo/vector-icons';
-import * as Notifications from 'expo-notifications';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { DarkTheme, NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import * as Notifications from 'expo-notifications';
+import { StatusBar } from 'expo-status-bar';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, Platform, View } from 'react-native';
+import 'react-native-gesture-handler';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { StoreProvider } from './src/context/StoreContext';
+import CoolDownScreen from './src/screens/CoolDownScreen';
 import DashboardScreen from './src/screens/DashboardScreen';
 import JournalScreen from './src/screens/JournalScreen';
 import StatsScreen from './src/screens/StatsScreen';
-import CoolDownScreen from './src/screens/CoolDownScreen';
-import WelcomeScreen from './src/screens/WelcomeScreen';
 import StreaksScreen from './src/screens/StreaksScreen';
-import { StoreProvider } from './src/context/StoreContext';
+import WelcomeScreen from './src/screens/WelcomeScreen';
 
 // --- Handler global de notificaciones (ok fuera de componentes; no usa hooks) ---
 Notifications.setNotificationHandler({
@@ -56,9 +56,9 @@ function RootTabs() {
         tabBarStyle: {
           backgroundColor: '#0f172a',
           borderTopColor: '#1f2937',
-          height: 64,
-          paddingBottom: 10,
-          paddingTop: 6,
+          height: Platform.OS === 'android' ? 90 : 64,
+          paddingBottom: Platform.OS === 'android' ? 30 : 10,
+          paddingTop: Platform.OS === 'android' ? 12 : 6,
         },
         tabBarActiveTintColor: '#22c55e',
         tabBarInactiveTintColor: '#9ca3af',

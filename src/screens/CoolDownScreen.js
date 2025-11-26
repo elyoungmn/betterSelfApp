@@ -1,30 +1,30 @@
 // src/screens/CoolDownScreen.js
-import React, { useState, useEffect, useMemo, useRef, useContext } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 
-import { View, Text, TouchableOpacity, Animated, Easing, useWindowDimensions, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Haptics from 'expo-haptics';
+import { Animated, Easing, ScrollView, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native';
 
 // ───────────────────────────────────────────────────────────────────────────────
 // Presets de técnicas
 // ───────────────────────────────────────────────────────────────────────────────
 const COLORS = {
   inhale: '#22c55e',   // verde
-  hold:   '#f59e0b',   // ámbar
+  hold: '#f59e0b',   // ámbar
   exhale: '#38bdf8',   // azul
-  power:  '#a78bfa',   // violeta (resp. activa Wim Hof)
-  empty:  '#ef4444',   // rojo (retención sin aire)
-  recover:'#10b981',   // verde esmeralda (recuperación)
+  power: '#a78bfa',   // violeta (resp. activa Wim Hof)
+  empty: '#ef4444',   // rojo (retención sin aire)
+  recover: '#10b981',   // verde esmeralda (recuperación)
 };
 
 const makeTimedCycles = (pattern /* [{key,label,secs,color}] */, totalSecs) => {
   const seq = [];
-  const cycleSecs = pattern.reduce((a,p)=>a+p.secs,0);
+  const cycleSecs = pattern.reduce((a, p) => a + p.secs, 0);
   if (cycleSecs <= 0) return [];
   let remaining = totalSecs;
 
   while (remaining > 0) {
-    for (let i=0;i<pattern.length;i++) {
+    for (let i = 0; i < pattern.length; i++) {
       const step = pattern[i];
       if (remaining <= 0) break;
       const secs = Math.min(step.secs, remaining);
@@ -48,11 +48,11 @@ const PRESETS = {
     descLong: 'Inhala profundamente por 4s, sostén 7s y exhala 8s. Ideal para relajar el sistema nervioso y conciliar el sueño.',
     benefits: ['Reduce ansiedad', 'Induce calma', 'Mejora la calidad del sueño'],
     build: (minutes) => {
-      const totalSecs = Math.max(60, Math.min(20*60, minutes*60));
+      const totalSecs = Math.max(60, Math.min(20 * 60, minutes * 60));
       const pattern = [
-        { key:'inhale', label:'Inhala', secs:4, color:COLORS.inhale },
-        { key:'hold',   label:'Sostén', secs:7, color:COLORS.hold   },
-        { key:'exhale', label:'Exhala', secs:8, color:COLORS.exhale },
+        { key: 'inhale', label: 'Inhala', secs: 4, color: COLORS.inhale },
+        { key: 'hold', label: 'Sostén', secs: 7, color: COLORS.hold },
+        { key: 'exhale', label: 'Exhala', secs: 8, color: COLORS.exhale },
       ];
       return makeTimedCycles(pattern, totalSecs);
     },
@@ -63,12 +63,12 @@ const PRESETS = {
     descLong: 'Respiración en “caja”: 4s inhalar, 4s sostener, 4s exhalar, 4s sostener. Equilibra y mejora el enfoque.',
     benefits: ['Enfoque mental', 'Estabilidad emocional', 'Ritmo respiratorio uniforme'],
     build: (minutes) => {
-      const totalSecs = Math.max(60, Math.min(20*60, minutes*60));
+      const totalSecs = Math.max(60, Math.min(20 * 60, minutes * 60));
       const pattern = [
-        { key:'inhale', label:'Inhala', secs:4, color:COLORS.inhale },
-        { key:'hold',   label:'Sostén', secs:4, color:COLORS.hold   },
-        { key:'exhale', label:'Exhala', secs:4, color:COLORS.exhale },
-        { key:'hold',   label:'Sostén', secs:4, color:COLORS.hold   },
+        { key: 'inhale', label: 'Inhala', secs: 4, color: COLORS.inhale },
+        { key: 'hold', label: 'Sostén', secs: 4, color: COLORS.hold },
+        { key: 'exhale', label: 'Exhala', secs: 4, color: COLORS.exhale },
+        { key: 'hold', label: 'Sostén', secs: 4, color: COLORS.hold },
       ];
       return makeTimedCycles(pattern, totalSecs);
     },
@@ -79,10 +79,10 @@ const PRESETS = {
     descLong: 'Respira a ~6 respiraciones por minuto: 5s inhalar, 5s exhalar. Favorece la variabilidad cardiaca óptima.',
     benefits: ['Coherencia cardiaca', 'Estrés bajo control', 'Mayor energía sostenida'],
     build: (minutes) => {
-      const totalSecs = Math.max(60, Math.min(20*60, minutes*60));
+      const totalSecs = Math.max(60, Math.min(20 * 60, minutes * 60));
       const pattern = [
-        { key:'inhale', label:'Inhala', secs:5, color:COLORS.inhale },
-        { key:'exhale', label:'Exhala', secs:5, color:COLORS.exhale },
+        { key: 'inhale', label: 'Inhala', secs: 5, color: COLORS.inhale },
+        { key: 'exhale', label: 'Exhala', secs: 5, color: COLORS.exhale },
       ];
       return makeTimedCycles(pattern, totalSecs);
     },
@@ -96,25 +96,25 @@ const PRESETS = {
     build: (_minutes, config = DEFAULT_WIM) => {
       const { rounds, breaths, emptyHold, recoverHold } = config;
       const seq = [];
-      for (let r=1; r<=rounds; r++) {
-        for (let i=0;i<breaths;i++) {
-          seq.push({ key:'inhale', label:`Respira ${i+1}/${breaths}`, secs: WIM_POWER_IN,  color: COLORS.power });
-          seq.push({ key:'exhale', label:'Suelta',                 secs: WIM_POWER_OUT, color: COLORS.exhale });
+      for (let r = 1; r <= rounds; r++) {
+        for (let i = 0; i < breaths; i++) {
+          seq.push({ key: 'inhale', label: `Respira ${i + 1}/${breaths}`, secs: WIM_POWER_IN, color: COLORS.power });
+          seq.push({ key: 'exhale', label: 'Suelta', secs: WIM_POWER_OUT, color: COLORS.exhale });
         }
-        seq.push({ key:'hold', label:'Retén (sin aire)',         secs: emptyHold,   color: COLORS.empty });
-        seq.push({ key:'hold', label:'Recuperación (retén)',     secs: recoverHold, color: COLORS.recover });
+        seq.push({ key: 'hold', label: 'Retén (sin aire)', secs: emptyHold, color: COLORS.empty });
+        seq.push({ key: 'hold', label: 'Recuperación (retén)', secs: recoverHold, color: COLORS.recover });
       }
       return seq;
     },
   },
 };
 
-const PREF_MINUTES      = '@cooldown:minutes';
-const PREF_PROTOCOL     = '@cooldown:protocol';
-const PREF_WIM_ROUNDS   = '@cooldown:wim_rounds';
-const PREF_WIM_BREATHS  = '@cooldown:wim_breaths';
-const PREF_WIM_EMPTY    = '@cooldown:wim_empty';
-const PREF_WIM_RECOVER  = '@cooldown:wim_recover';
+const PREF_MINUTES = '@cooldown:minutes';
+const PREF_PROTOCOL = '@cooldown:protocol';
+const PREF_WIM_ROUNDS = '@cooldown:wim_rounds';
+const PREF_WIM_BREATHS = '@cooldown:wim_breaths';
+const PREF_WIM_EMPTY = '@cooldown:wim_empty';
+const PREF_WIM_RECOVER = '@cooldown:wim_recover';
 
 // ───────────────────────────────────────────────────────────────────────────────
 // Componente
@@ -123,7 +123,7 @@ export default function CoolDownScreen() {
   const { width } = useWindowDimensions();
   const CONTENT_PADDING = 16;
   const CARDS_GAP = 12;
-  const CARD_WIDTH = (width - CONTENT_PADDING*2 - CARDS_GAP) / 2; // 2 por fila
+  const CARD_WIDTH = (width - CONTENT_PADDING * 2 - CARDS_GAP) / 2; // 2 por fila
 
   // Estado básico
   const [protocol, setProtocol] = useState('478');
@@ -155,55 +155,55 @@ export default function CoolDownScreen() {
           AsyncStorage.getItem(PREF_WIM_EMPTY),
           AsyncStorage.getItem(PREF_WIM_RECOVER),
         ]);
-        if (m) setMinutes(Math.max(1, Math.min(20, parseInt(m,10) || 2)));
+        if (m) setMinutes(Math.max(1, Math.min(20, parseInt(m, 10) || 2)));
         if (p && PRESETS[p]) setProtocol(p);
         setWim({
-          rounds:      clampInt(wr, DEFAULT_WIM.rounds, 1, 5),
-          breaths:     clampInt(wb, DEFAULT_WIM.breaths, 20, 60),
-          emptyHold:   clampInt(we, DEFAULT_WIM.emptyHold, 20, 180),
+          rounds: clampInt(wr, DEFAULT_WIM.rounds, 1, 5),
+          breaths: clampInt(wb, DEFAULT_WIM.breaths, 20, 60),
+          emptyHold: clampInt(we, DEFAULT_WIM.emptyHold, 20, 180),
           recoverHold: clampInt(wrc, DEFAULT_WIM.recoverHold, 10, 40),
         });
-      } catch {}
+      } catch { }
     })();
   }, []);
 
   // Guardar preferencias
-  useEffect(() => { AsyncStorage.setItem(PREF_MINUTES, String(minutes)).catch(()=>{}); }, [minutes]);
-  useEffect(() => { AsyncStorage.setItem(PREF_PROTOCOL, String(protocol)).catch(()=>{}); }, [protocol]);
+  useEffect(() => { AsyncStorage.setItem(PREF_MINUTES, String(minutes)).catch(() => { }); }, [minutes]);
+  useEffect(() => { AsyncStorage.setItem(PREF_PROTOCOL, String(protocol)).catch(() => { }); }, [protocol]);
   useEffect(() => {
     AsyncStorage.multiSet([
-      [PREF_WIM_ROUNDS,   String(wim.rounds)],
-      [PREF_WIM_BREATHS,  String(wim.breaths)],
-      [PREF_WIM_EMPTY,    String(wim.emptyHold)],
-      [PREF_WIM_RECOVER,  String(wim.recoverHold)],
-    ]).catch(()=>{});
+      [PREF_WIM_ROUNDS, String(wim.rounds)],
+      [PREF_WIM_BREATHS, String(wim.breaths)],
+      [PREF_WIM_EMPTY, String(wim.emptyHold)],
+      [PREF_WIM_RECOVER, String(wim.recoverHold)],
+    ]).catch(() => { });
   }, [wim.rounds, wim.breaths, wim.emptyHold, wim.recoverHold]);
 
   const currentStep = seq[idx] || null;
   const isTimeBased = PRESETS[protocol]?.timeBased;
 
   const totalPlanned = useMemo(
-    () => seq.reduce((a,s)=>a+(s.secs||0),0),
+    () => seq.reduce((a, s) => a + (s.secs || 0), 0),
     [seq]
   );
 
   // Plan estimado (antes de iniciar)
   const plannedTime = useMemo(() => {
-    if (PRESETS[protocol]?.timeBased) return Math.max(60, Math.min(20*60, minutes*60));
+    if (PRESETS[protocol]?.timeBased) return Math.max(60, Math.min(20 * 60, minutes * 60));
     // Wim Hof
     const perBreath = WIM_POWER_IN + WIM_POWER_OUT;
-    const perRound  = (wim.breaths * perBreath) + wim.emptyHold + wim.recoverHold;
+    const perRound = (wim.breaths * perBreath) + wim.emptyHold + wim.recoverHold;
     return wim.rounds * perRound;
   }, [protocol, minutes, wim]);
 
   // Animación por tipo de fase
-  const animateForKey = (key, secs=1) => {
+  const animateForKey = (key, secs = 1) => {
     if (key === 'inhale') {
-      Animated.timing(scale, { toValue: 1.2, duration: secs*1000, easing: Easing.out(Easing.quad), useNativeDriver: true }).start();
+      Animated.timing(scale, { toValue: 1.2, duration: secs * 1000, easing: Easing.out(Easing.quad), useNativeDriver: true }).start();
     } else if (key === 'hold') {
       Animated.timing(scale, { toValue: 1.2, duration: 200, useNativeDriver: true }).start();
     } else { // exhale / otros
-      Animated.timing(scale, { toValue: 0.9, duration: secs*1000, easing: Easing.inOut(Easing.quad), useNativeDriver: true }).start();
+      Animated.timing(scale, { toValue: 0.9, duration: secs * 1000, easing: Easing.inOut(Easing.quad), useNativeDriver: true }).start();
     }
   };
 
@@ -228,17 +228,20 @@ export default function CoolDownScreen() {
     setSeq(sequence);
     setIdx(0);
     setStepLeft(sequence[0].secs);
-    setTotalLeft(sequence.reduce((a,s)=>a+s.secs,0));
+    setTotalLeft(sequence.reduce((a, s) => a + s.secs, 0));
     setRunning(true);
 
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(()=>{});
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => { });
     animateForKey(sequence[0].key, sequence[0].secs);
 
     if (tickRef.current) clearInterval(tickRef.current);
     tickRef.current = setInterval(() => {
+      setTotalLeft((t) => Math.max(0, t - 1));
+
       setStepLeft((s) => {
         if (s > 1) return s - 1;
-        // Cambia de paso
+
+        // Transition to next step
         setIdx((i) => {
           const next = i + 1;
           if (next >= sequence.length) {
@@ -247,17 +250,17 @@ export default function CoolDownScreen() {
             setRunning(false);
             Animated.timing(scale, { toValue: 1, duration: 250, useNativeDriver: true }).start();
             return i;
-          } else {
-            const st = sequence[next];
-            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(()=>{});
-            animateForKey(st.key, st.secs);
-            setStepLeft(st.secs);
-            return next;
           }
+
+          const st = sequence[next];
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => { });
+          animateForKey(st.key, st.secs);
+          setStepLeft(st.secs); // Set next step duration immediately
+          return next;
         });
-        return 0;
+
+        return s; // Keep current value during transition
       });
-      setTotalLeft((t) => Math.max(0, t - 1));
     }, 1000);
   };
 
@@ -277,25 +280,25 @@ export default function CoolDownScreen() {
 
   // Formateo reloj
   const fmt = (s) => {
-    const m = Math.floor(s/60), ss = s%60;
-    return `${String(m).padStart(2,'0')}:${String(ss).padStart(2,'0')}`;
+    const m = Math.floor(s / 60), ss = s % 60;
+    return `${String(m).padStart(2, '0')}:${String(ss).padStart(2, '0')}`;
   };
 
   // ────────────────────────────────────────────────────────────────────────────
   // UI (con ScrollView para permitir desplazamiento)
   // ────────────────────────────────────────────────────────────────────────────
   return (
-    <ScrollView style={{ flex:1, backgroundColor:'#0b1220' }} contentContainerStyle={{ padding: CONTENT_PADDING, paddingBottom: 28 }}>
-      <Text style={{ color:'#e5e7eb', fontSize:22, fontWeight:'800', marginBottom:8 }}>
+    <ScrollView style={{ flex: 1, backgroundColor: '#0b1220' }} contentContainerStyle={{ padding: CONTENT_PADDING, paddingBottom: 28 }}>
+      <Text style={{ color: '#e5e7eb', fontSize: 22, fontWeight: '800', marginBottom: 8 }}>
         Respiración guiada
       </Text>
-      <Text style={{ color:'#9ca3af', marginBottom:12 }}>
-        Elige la técnica. Ajusta parámetros si aplica y cuando estés listo, presiona <Text style={{ color:'#e5e7eb', fontWeight:'700' }}>Iniciar</Text>.
+      <Text style={{ color: '#9ca3af', marginBottom: 12 }}>
+        Elige la técnica. Ajusta parámetros si aplica y cuando estés listo, presiona <Text style={{ color: '#e5e7eb', fontWeight: '700' }}>Iniciar</Text>.
       </Text>
 
       {/* Tarjetas de presets — 2 por fila, grandes y uniformes, solo nombre */}
-      <View style={{ flexDirection:'row', flexWrap:'wrap', gap: CARDS_GAP, marginBottom: 16 }}>
-        {(['478','box','coherent','wimhof']).map((k) => {
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: CARDS_GAP, marginBottom: 16 }}>
+        {(['478', 'box', 'coherent', 'wimhof']).map((k) => {
           const p = PRESETS[k];
           const active = k === protocol;
           return (
@@ -331,25 +334,25 @@ export default function CoolDownScreen() {
       {/* Controles de duración (solo para técnicas por tiempo) */}
       {PRESETS[protocol]?.timeBased && (
         <View style={{
-          backgroundColor:'#0f172a', borderRadius:16, borderWidth:1, borderColor:'#1f2937',
-          padding:16, flexDirection:'row', alignItems:'center', justifyContent:'space-between', marginBottom: 16
+          backgroundColor: '#0f172a', borderRadius: 16, borderWidth: 1, borderColor: '#1f2937',
+          padding: 16, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16
         }}>
-          <View style={{ flexDirection:'row', alignItems:'center', gap:10 }}>
-            <Text style={{ color:'#cbd5e1', fontWeight:'700' }}>Duración</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+            <Text style={{ color: '#cbd5e1', fontWeight: '700' }}>Duración</Text>
             <TouchableOpacity onPress={() => incMinutes(-1)} disabled={running} style={BTN(running)}><Text style={BTNTXT}>–</Text></TouchableOpacity>
-            <View style={{ minWidth:56, alignItems:'center' }}>
-              <Text style={{ color:'#e5e7eb', fontSize:20, fontWeight:'900' }}>{minutes} min</Text>
+            <View style={{ minWidth: 56, alignItems: 'center' }}>
+              <Text style={{ color: '#e5e7eb', fontSize: 20, fontWeight: '900' }}>{minutes} min</Text>
             </View>
             <TouchableOpacity onPress={() => incMinutes(1)} disabled={running} style={BTN(running)}><Text style={BTNTXT}>+</Text></TouchableOpacity>
           </View>
-          <Text style={{ color:'#9ca3af' }}>Planificado: {fmt(plannedTime)}</Text>
+          <Text style={{ color: '#9ca3af' }}>Planificado: {fmt(plannedTime)}</Text>
         </View>
       )}
 
       {/* Configuración Wim Hof (solo visible cuando está seleccionada) */}
       {protocol === 'wimhof' && (
-        <View style={{ backgroundColor:'#0f172a', borderRadius:16, borderWidth:1, borderColor:'#1f2937', padding:16, marginBottom: 16, gap:12 }}>
-          <Text style={{ color:'#e5e7eb', fontSize:16, fontWeight:'800' }}>Wim Hof — Configuración</Text>
+        <View style={{ backgroundColor: '#0f172a', borderRadius: 16, borderWidth: 1, borderColor: '#1f2937', padding: 16, marginBottom: 16, gap: 12 }}>
+          <Text style={{ color: '#e5e7eb', fontSize: 16, fontWeight: '800' }}>Wim Hof — Configuración</Text>
 
           <ConfigRow
             label="Rondas"
@@ -377,56 +380,56 @@ export default function CoolDownScreen() {
             onInc={() => !running && setWim(v => ({ ...v, recoverHold: Math.min(40, v.recoverHold + 1) }))}
           />
 
-          <Text style={{ color:'#9ca3af' }}>
+          <Text style={{ color: '#9ca3af' }}>
             Estimado: {fmt(plannedTime)} totales. Practica en un lugar seguro y detente si hay mareo.
           </Text>
         </View>
       )}
 
       {/* Descripción + beneficios de la técnica seleccionada */}
-      <View style={{ backgroundColor:'#0f172a', borderRadius:16, borderWidth:1, borderColor:'#1f2937', padding:16, marginBottom: 16 }}>
-        <Text style={{ color:'#e5e7eb', fontSize:16, fontWeight:'800', marginBottom:6 }}>
+      <View style={{ backgroundColor: '#0f172a', borderRadius: 16, borderWidth: 1, borderColor: '#1f2937', padding: 16, marginBottom: 16 }}>
+        <Text style={{ color: '#e5e7eb', fontSize: 16, fontWeight: '800', marginBottom: 6 }}>
           {PRESETS[protocol].label}
         </Text>
-        <Text style={{ color:'#9ca3af', marginBottom:8 }}>
+        <Text style={{ color: '#9ca3af', marginBottom: 8 }}>
           {PRESETS[protocol].descLong}
         </Text>
-        <Text style={{ color:'#cbd5e1', fontWeight:'700', marginBottom:6 }}>Beneficios</Text>
-        <View style={{ gap:4 }}>
+        <Text style={{ color: '#cbd5e1', fontWeight: '700', marginBottom: 6 }}>Beneficios</Text>
+        <View style={{ gap: 4 }}>
           {PRESETS[protocol].benefits.map((b, i) => (
-            <Text key={i} style={{ color:'#9ca3af' }}>• {b}</Text>
+            <Text key={i} style={{ color: '#9ca3af' }}>• {b}</Text>
           ))}
         </View>
       </View>
 
       {/* Círculo animado + cronómetro */}
-      <View style={{ alignItems:'center', justifyContent:'center', marginTop:6, marginBottom:10 }}>
+      <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 6, marginBottom: 10 }}>
         <Animated.View style={{
-          width: 240, height: 240, borderRadius:9999, alignItems:'center', justifyContent:'center',
+          width: 240, height: 240, borderRadius: 9999, alignItems: 'center', justifyContent: 'center',
           backgroundColor: (currentStep?.color || '#1f2937') + '22',
           borderWidth: 2, borderColor: currentStep?.color || '#1f2937',
           transform: [{ scale }]
         }}>
-          <Text style={{ color:'#e5e7eb', fontSize:26, fontWeight:'900' }}>
+          <Text style={{ color: '#e5e7eb', fontSize: 26, fontWeight: '900' }}>
             {currentStep?.label || PRESETS[protocol]?.label}
           </Text>
           {running ? (
-            <Text style={{ color: currentStep?.color || '#9ca3af', fontSize:18, marginTop:6, fontVariant:['tabular-nums'] }}>
-              {String(stepLeft).padStart(2,'0')}s
+            <Text style={{ color: currentStep?.color || '#9ca3af', fontSize: 18, marginTop: 6, fontVariant: ['tabular-nums'] }}>
+              {String(stepLeft).padStart(2, '0')}s
             </Text>
           ) : (
-            <Text style={{ color:'#9ca3af', marginTop:6 }}>Listo cuando tú lo estés</Text>
+            <Text style={{ color: '#9ca3af', marginTop: 6 }}>Listo cuando tú lo estés</Text>
           )}
         </Animated.View>
 
         {/* Cronómetro total */}
-        <Text style={{ color:'#cbd5e1', fontSize:18, marginTop:12, fontVariant:['tabular-nums'] }}>
+        <Text style={{ color: '#cbd5e1', fontSize: 18, marginTop: 12, fontVariant: ['tabular-nums'] }}>
           {fmt(totalLeft || plannedTime)}
         </Text>
       </View>
 
       {/* Botones principales */}
-      <View style={{ flexDirection:'row', justifyContent:'center', gap:12 }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 12 }}>
         {!running ? (
           <TouchableOpacity onPress={startSequence} style={PRIMARY_BTN}>
             <Text style={PRIMARY_TXT}>Iniciar {PRESETS[protocol]?.label}</Text>
@@ -438,14 +441,14 @@ export default function CoolDownScreen() {
         )}
       </View>
 
-      <View style={{ height:18 }} />
+      <View style={{ height: 18 }} />
 
       {/* Tips / seguridad */}
       <View style={CARD}>
-        <Text style={{ color:'#e5e7eb', fontWeight:'700', marginBottom:6 }}>Notas</Text>
-        <Text style={{ color:'#9ca3af' }}>
-          Practica en un lugar seguro, sentado o acostado. Si sientes mareo, detente. 
-          Evita hacerlo al conducir, de pie, o en agua. La técnica Wim Hof incluye retenciones prolongadas; 
+        <Text style={{ color: '#e5e7eb', fontWeight: '700', marginBottom: 6 }}>Notas</Text>
+        <Text style={{ color: '#9ca3af' }}>
+          Practica en un lugar seguro, sentado o acostado. Si sientes mareo, detente.
+          Evita hacerlo al conducir, de pie, o en agua. La técnica Wim Hof incluye retenciones prolongadas;
           consulta a un profesional si tienes condiciones respiratorias o cardiovasculares.
         </Text>
       </View>
@@ -458,15 +461,15 @@ export default function CoolDownScreen() {
 // ───────────────────────────────────────────────────────────────────────────────
 function ConfigRow({ label, value, onDec, onInc, stepNote }) {
   return (
-    <View style={{ flexDirection:'row', alignItems:'center', justifyContent:'space-between' }}>
-      <Text style={{ color:'#cbd5e1', fontWeight:'700' }}>{label}</Text>
-      <View style={{ flexDirection:'row', alignItems:'center', gap:10 }}>
+    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+      <Text style={{ color: '#cbd5e1', fontWeight: '700' }}>{label}</Text>
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
         <TouchableOpacity onPress={onDec} style={BTN(false)}><Text style={BTNTXT}>–</Text></TouchableOpacity>
-        <View style={{ minWidth:56, alignItems:'center' }}>
-          <Text style={{ color:'#e5e7eb', fontSize:18, fontWeight:'900' }}>{value}</Text>
+        <View style={{ minWidth: 56, alignItems: 'center' }}>
+          <Text style={{ color: '#e5e7eb', fontSize: 18, fontWeight: '900' }}>{value}</Text>
         </View>
         <TouchableOpacity onPress={onInc} style={BTN(false)}><Text style={BTNTXT}>+</Text></TouchableOpacity>
-        {!!stepNote && <Text style={{ color:'#64748b', fontSize:12 }}>{stepNote}</Text>}
+        {!!stepNote && <Text style={{ color: '#64748b', fontSize: 12 }}>{stepNote}</Text>}
       </View>
     </View>
   );
@@ -481,13 +484,13 @@ const clampInt = (maybe, fallback, min, max) => {
 // ───────────────────────────────────────────────────────────────────────────────
 // Estilos base
 // ───────────────────────────────────────────────────────────────────────────────
-const CARD = { backgroundColor:'#0f172a', borderRadius:16, borderWidth:1, borderColor:'#1f2937', padding:16 };
-const PRIMARY_BTN = { backgroundColor:'#22c55e', paddingVertical:14, paddingHorizontal:28, borderRadius:14 };
-const PRIMARY_TXT = { color:'#0b1220', fontWeight:'900', fontSize:16 };
-const STOP_BTN = { backgroundColor:'#ef4444', paddingVertical:14, paddingHorizontal:28, borderRadius:14 };
-const STOP_TXT = { color:'#fff', fontWeight:'900', fontSize:16 };
+const CARD = { backgroundColor: '#0f172a', borderRadius: 16, borderWidth: 1, borderColor: '#1f2937', padding: 16 };
+const PRIMARY_BTN = { backgroundColor: '#22c55e', paddingVertical: 14, paddingHorizontal: 28, borderRadius: 14 };
+const PRIMARY_TXT = { color: '#0b1220', fontWeight: '900', fontSize: 16 };
+const STOP_BTN = { backgroundColor: '#ef4444', paddingVertical: 14, paddingHorizontal: 28, borderRadius: 14 };
+const STOP_TXT = { color: '#fff', fontWeight: '900', fontSize: 16 };
 const BTN = () => ({
   width: 36, height: 36, borderRadius: 10, alignItems: 'center', justifyContent: 'center',
   backgroundColor: '#111827', borderWidth: 1, borderColor: '#1f2937'
 });
-const BTNTXT = { color:'#e5e7eb', fontSize:18, fontWeight:'800', marginTop:-2 };
+const BTNTXT = { color: '#e5e7eb', fontSize: 18, fontWeight: '800', marginTop: -2 };
