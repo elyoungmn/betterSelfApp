@@ -1,0 +1,170 @@
+{
+    "common": {
+        "add": "Add",
+        "save": "Save",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "rename": "Rename",
+        "completed": "completed",
+        "pending": "Pending",
+        "reset": "Reset",
+        "start": "Start",
+        "create": "Create",
+        "days": "days",
+        "today": "today"
+    },
+    "tabs": {
+        "home": "Home",
+        "journal": "Journal",
+        "cooldown": "CoolDown",
+        "streaks": "Streaks",
+        "stats": "Statistics"
+    },
+    "welcome": {
+        "title": "welcome",
+        "subtitle": "Start with clarity 🧠",
+        "start": "Get Started",
+        "nextQuote": "Next Quote",
+        "autoClose": "The quote changes automatically every day. This screen will close automatically in 7 seconds.",
+        "quotes": [
+            {
+                "text": "It's not what happens to you, but how you react to it that matters.",
+                "author": "Epictetus"
+            },
+            {
+                "text": "The happiness of your life depends upon the quality of your thoughts.",
+                "author": "Marcus Aurelius"
+            },
+            {
+                "text": "The greatest victory is to conquer yourself.",
+                "author": "Seneca"
+            },
+            {
+                "text": "If you are distressed by anything external, the pain is not due to the thing itself, but to your estimate of it.",
+                "author": "Marcus Aurelius"
+            },
+            {
+                "text": "No man is free who is not master of himself.",
+                "author": "Epictetus"
+            },
+            {
+                "text": "Difficulties show what men are.",
+                "author": "Epictetus"
+            },
+            {
+                "text": "He who has a why to live can bear almost any how.",
+                "author": "Nietzsche"
+            }
+        ]
+    },
+    "dashboard": {
+        "title": "Daily Summary",
+        "tmi": {
+            "title": "Today's MIT",
+            "placeholder": "Tap to set your Most Important Task in the Journal"
+        },
+        "morningRoutine": {
+            "title": "Morning Routine",
+            "noItems": "No items"
+        },
+        "habits": {
+            "title": "Habits",
+            "newPlaceholder": "New habit...",
+            "completedToday": "completed today",
+            "noHabits": "No habits yet. Add one or tap \"Reset\".",
+            "perDayQuestion": "How many times per day do you want to do this habit?",
+            "timesPerDay": "times/day"
+        },
+        "tasks": {
+            "title": "Daily Tasks",
+            "newPlaceholder": "New task for today...",
+            "noTasks": "No tasks for now"
+        },
+        "nightRoutine": {
+            "title": "Night Routine"
+        },
+        "challenge": {
+            "title": "Challenge of the Day",
+            "completed": "Completed ✅ (tap to unmark)",
+            "pending": "Pending (tap to mark)"
+        }
+    },
+    "journal": {
+        "title": "Journal",
+        "tmi": {
+            "title": "MIT — Most Important Task of the Day",
+            "placeholder": "What task defines your day?",
+            "autoSave": "Auto-saved."
+        },
+        "gratitude": {
+            "title": "Gratitude — 3 things",
+            "placeholder": "Write something you're grateful for"
+        },
+        "affirmations": {
+            "title": "Daily Affirmations — 3",
+            "placeholder": "Ex: I am consistent, I can do this, today I progress 1%"
+        },
+        "victories": {
+            "title": "Victories of the Day",
+            "placeholder": "What went well today?"
+        },
+        "notes": {
+            "title": "Daily Notes",
+            "placeholder": "Free notes, ideas, quick to-dos..."
+        }
+    },
+    "streaks": {
+        "title": "Streaks",
+        "monitors": {
+            "title": "Monitors (bad habits)",
+            "description": "Track how many days you've gone without a habit you want to quit.",
+            "newPlaceholder": "Ex: No pornography",
+            "daysClean": "Days \"clean\"",
+            "relapse": "Relapse today",
+            "noMonitors": "No monitors yet. Create one above."
+        },
+        "challenges": {
+            "title": "Challenges",
+            "description": "Create multiple challenges (Fasting, Exercise, Cold shower, etc.). Mark one day per challenge.",
+            "namePlaceholder": "Ex: Fasting",
+            "nameLabel": "Challenge name",
+            "targetLabel": "Target days",
+            "daysPlaceholder": "Days",
+            "completed": "completed",
+            "remaining": "Remaining",
+            "markToday": "Mark today",
+            "alreadyMarked": "Already marked today",
+            "challengeCompleted": "Challenge completed",
+            "finalize": "Finalize / Cancel",
+            "inactive": "(inactive)",
+            "noChallenges": "No challenges yet. Create the first one above."
+        }
+    },
+    "stats": {
+        "title": "Statistics",
+        "habitCompletion": "Habit Completion",
+        "rating": "Rating",
+        "totalHabits": "Total Habits",
+        "activeChallenges": "Active Challenges",
+        "challengesToday": "Challenges Marked Today",
+        "bestStreak": "Best Streak",
+        "habitChart": "Habit Completion % (12 days)",
+        "challengeChart": "Challenges Marked (last 7 days)",
+        "days": "DAYS"
+    },
+    "cooldown": {
+        "title": "CoolDown",
+        "subtitle": "Breathe and relax",
+        "breathing": {
+            "title": "Breathing Exercise",
+            "technique478": "4-7-8 Technique",
+            "start": "Start",
+            "stop": "Stop",
+            "inhale": "Inhale",
+            "hold": "Hold",
+            "exhale": "Exhale",
+            "round": "Round",
+            "completed": "Completed!"
+        }
+    }
+}

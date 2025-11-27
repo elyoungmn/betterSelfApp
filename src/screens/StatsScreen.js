@@ -1,7 +1,7 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { View, Text, ScrollView, useWindowDimensions } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Svg, Path, Defs, LinearGradient, Stop, Line, G, Text as SvgText } from 'react-native-svg';
+import React, { useEffect, useMemo, useState } from 'react';
+import { ScrollView, Text, useWindowDimensions, View } from 'react-native';
+import { Defs, G, Line, LinearGradient, Path, Stop, Svg, Text as SvgText } from 'react-native-svg';
 import { useStore } from '../context/StoreContext';
 
 // ───────────────────────────────────────────────────────────────────────────────
@@ -161,7 +161,7 @@ function Bars7Days({ data, title = 'Retos marcados (7 días)' }) {
   );
 }
 
-const HISTORY_KEY = '@betterSelfApp:habitHistory'; // { [yyyy-mm-dd]: number 0..100 }
+const HISTORY_KEY = '@dailyForge:habitHistory'; // { [yyyy-mm-dd]: number 0..100 }
 
 export default function StatsScreen() {
   const { routine, nightRoutine, tasks, habits, habitsDoneToday, challenges, streaks } = useStore();
@@ -169,9 +169,9 @@ export default function StatsScreen() {
 
   // Progresos de HOY (0..1)
   const routineP = useMemo(() => (routine.length ? routine.filter(r => r.done).length / routine.length : 0), [routine]);
-  const nightP   = useMemo(() => (nightRoutine.length ? nightRoutine.filter(r => r.done).length / nightRoutine.length : 0), [nightRoutine]);
-  const tasksP   = useMemo(() => (tasks.length ? tasks.filter(t => t.done).length / tasks.length : 0), [tasks]);
-  const habitsP  = useMemo(() => {
+  const nightP = useMemo(() => (nightRoutine.length ? nightRoutine.filter(r => r.done).length / nightRoutine.length : 0), [nightRoutine]);
+  const tasksP = useMemo(() => (tasks.length ? tasks.filter(t => t.done).length / tasks.length : 0), [tasks]);
+  const habitsP = useMemo(() => {
     const total = habits.length || 0;
     const done = Object.values(habitsDoneToday || {}).filter(Boolean).length;
     return total ? done / total : 0;
@@ -192,7 +192,7 @@ export default function StatsScreen() {
           }
         }
         setHistory(map);
-      } catch {}
+      } catch { }
     })();
   }, [habitsP]);
 
@@ -206,7 +206,7 @@ export default function StatsScreen() {
     return days7.map(d => {
       const key = YMD(d);
       const count = (challenges || []).reduce((acc, c) => acc + (c.log?.[key] ? 1 : 0), 0);
-      return { label: `${d.getDate()}/${d.getMonth()+1}`, value: count };
+      return { label: `${d.getDate()}/${d.getMonth() + 1}`, value: count };
     });
   }, [challenges]);
 

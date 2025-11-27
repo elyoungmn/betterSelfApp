@@ -1,15 +1,15 @@
 {
   "expo": {
-    "name": "BetterSelfApp",
-    "slug": "betterSelfApp",
+    "name": "DailyForge",
+    "slug": "dailyForge",
     "version": "1.0.0",
-    "scheme": "betterself",
+    "scheme": "dailyforge",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#1e3a5f"
     },
     "android": {
       "package": "com.morenoyoung.betterselfapp",

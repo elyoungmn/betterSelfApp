@@ -1,0 +1,170 @@
+{
+    "common": {
+        "add": "Agregar",
+        "save": "Guardar",
+        "cancel": "Cancelar",
+        "delete": "Eliminar",
+        "rename": "Renombrar",
+        "completed": "completado",
+        "pending": "Pendiente",
+        "reset": "Reiniciar",
+        "start": "Comenzar",
+        "create": "Crear",
+        "days": "días",
+        "today": "hoy"
+    },
+    "tabs": {
+        "home": "Inicio",
+        "journal": "Diario",
+        "cooldown": "CoolDown",
+        "streaks": "Rachas",
+        "stats": "Estadísticas"
+    },
+    "welcome": {
+        "title": "bienvenido",
+        "subtitle": "Empieza con claridad 🧠",
+        "start": "Comenzar",
+        "nextQuote": "Otra frase",
+        "autoClose": "La frase cambia automáticamente cada día. Esta pantalla se cierra sola en 7 segundos.",
+        "quotes": [
+            {
+                "text": "No es lo que te sucede, sino cómo reaccionas a ello lo que importa.",
+                "author": "Epicteto"
+            },
+            {
+                "text": "La felicidad de tu vida depende de la calidad de tus pensamientos.",
+                "author": "Marco Aurelio"
+            },
+            {
+                "text": "La mayor victoria es vencerse a uno mismo.",
+                "author": "Séneca"
+            },
+            {
+                "text": "Si te molesta algo externo, el dolor no se debe a la cosa en sí, sino a tu evaluación.",
+                "author": "Marco Aurelio"
+            },
+            {
+                "text": "Nadie es libre si no es dueño de sí mismo.",
+                "author": "Epicteto"
+            },
+            {
+                "text": "La dificultad muestra lo que somos.",
+                "author": "Epicteto"
+            },
+            {
+                "text": "A quien tiene un porqué, casi cualquier cómo le resulta soportable.",
+                "author": "Nietzsche"
+            }
+        ]
+    },
+    "dashboard": {
+        "title": "Resumen del día",
+        "tmi": {
+            "title": "TMI de hoy",
+            "placeholder": "Pulsa para establecer tu TMI en el Diario"
+        },
+        "morningRoutine": {
+            "title": "Rutina matutina",
+            "noItems": "No hay elementos"
+        },
+        "habits": {
+            "title": "Hábitos",
+            "newPlaceholder": "Nuevo hábito...",
+            "completedToday": "completados hoy",
+            "noHabits": "No hay hábitos aún. Añade uno o toca \"Reiniciar\".",
+            "perDayQuestion": "¿Cuántas veces al día quieres realizar este hábito?",
+            "timesPerDay": "veces/día"
+        },
+        "tasks": {
+            "title": "Tareas diarias",
+            "newPlaceholder": "Nueva tarea para hoy...",
+            "noTasks": "Sin tareas por ahora"
+        },
+        "nightRoutine": {
+            "title": "Rutina nocturna"
+        },
+        "challenge": {
+            "title": "Reto del día",
+            "completed": "Completado ✅ (toca para desmarcar)",
+            "pending": "Pendiente (toca para marcar)"
+        }
+    },
+    "journal": {
+        "title": "Diario",
+        "tmi": {
+            "title": "TMI — Tarea más importante del día",
+            "placeholder": "¿Qué tarea define tu día?",
+            "autoSave": "Se guarda automáticamente."
+        },
+        "gratitude": {
+            "title": "Gratitud — 3 cosas",
+            "placeholder": "Escribe algo por lo que estés agradecido"
+        },
+        "affirmations": {
+            "title": "Afirmaciones del día — 3",
+            "placeholder": "Ej: Soy constante, puedo con esto, hoy progreso 1%"
+        },
+        "victories": {
+            "title": "Victorias del día",
+            "placeholder": "¿Qué salió bien hoy?"
+        },
+        "notes": {
+            "title": "Apuntes del día",
+            "placeholder": "Notas libres, ideas, pendientes rápidos..."
+        }
+    },
+    "streaks": {
+        "title": "Rachas",
+        "monitors": {
+            "title": "Monitores (malos hábitos)",
+            "description": "Cuenta cuántos días llevas sin un hábito que quieres dejar.",
+            "newPlaceholder": "Ej: Sin pornografía",
+            "daysClean": "Días \"limpio\"",
+            "relapse": "Desliz hoy",
+            "noMonitors": "No hay monitores aún. Crea uno arriba."
+        },
+        "challenges": {
+            "title": "Retos",
+            "description": "Crea varios retos (Ayuno, Ejercicio, Ducha fría, etc.). Marca un día por reto.",
+            "namePlaceholder": "Ej: Ayuno",
+            "nameLabel": "Nombre del reto",
+            "targetLabel": "Días objetivo",
+            "daysPlaceholder": "Días",
+            "completed": "completados",
+            "remaining": "Restan",
+            "markToday": "Marcar hoy",
+            "alreadyMarked": "Hoy ya marcado",
+            "challengeCompleted": "Reto completado",
+            "finalize": "Finalizar / Cancelar",
+            "inactive": "(inactivo)",
+            "noChallenges": "Aún no hay retos. Crea el primero arriba."
+        }
+    },
+    "stats": {
+        "title": "Estadísticas",
+        "habitCompletion": "Finalización de hábitos",
+        "rating": "Calificación",
+        "totalHabits": "Hábitos totales",
+        "activeChallenges": "Retos activos",
+        "challengesToday": "Retos marcados hoy",
+        "bestStreak": "Mejor racha",
+        "habitChart": "Finalización del Hábito % (12 días)",
+        "challengeChart": "Retos marcados (últimos 7 días)",
+        "days": "DÍAS"
+    },
+    "cooldown": {
+        "title": "CoolDown",
+        "subtitle": "Respira y relájate",
+        "breathing": {
+            "title": "Ejercicio de respiración",
+            "technique478": "Técnica 4-7-8",
+            "start": "Iniciar",
+            "stop": "Detener",
+            "inhale": "Inhala",
+            "hold": "Mantén",
+            "exhale": "Exhala",
+            "round": "Ronda",
+            "completed": "¡Completado!"
+        }
+    }
+}
